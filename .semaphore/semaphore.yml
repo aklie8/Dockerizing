@@ -17,3 +17,7 @@ blocks:
             - 'docker push "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest"'
       secrets:
         - name: dockerhub
+      agent:
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu1804
