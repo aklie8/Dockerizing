@@ -15,14 +15,7 @@ blocks:
             - 'docker pull "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest" || true'
             - 'docker build --cache-from "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest" -t "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest" .'
             - 'docker push "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest"'
-      secrets:
-        - name: dockerhub
       agent:
         machine:
           type: e1-standard-2
           os_image: ubuntu2004
-      env_vars:
-        - name: DOCKER_USERNAME
-          value: aklie8
-        - name: DOCKER_PASSWORD
-          value: abcdABCD
