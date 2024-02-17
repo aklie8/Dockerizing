@@ -12,12 +12,23 @@ blocks:
           commands:
             - checkout
             - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
-            - 'docker pull "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest" || true'
-            - 'docker build --cache-from "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest" -t "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest" .'
-            - 'docker push "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest"'
-      agent:
-        machine:
-          type: e1-standard-2
-          os_image: ubuntu2004
+            - 'docker pull "${DOCKER_USERNAME}/addressbook:latest" || true'
+            - 'docker build --cache-from "${DOCKER_USERNAME}/addressbook:latest" -t "${DOCKER_USERNAME}/addressbook:latest" .'
+            - 'docker push "${DOCKER_USERNAME}/addressbook:latest"'
+            - 'docker tag "${DOCKER_USERNAME}/addressbook:latest" "${DOCKER_USERNAME}/addressbook:$SEMAPHORE_WORKFLOW_ID"'
+            - 'docker push "${DOCKER_USERNAME}/addressbook:$SEMAPHORE_WORKFLOW_ID"'
       secrets:
-        - name: docker hub
+        - name: dockerhub
+  - name: Test
+    task:
+      secrets:
+        - name: dockerhub
+      prologue:
+        commands:
+          - checkout
+          - 'echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin'
+      jobs:
+        - name: Integration test
+          commands:
+            - cat docker-compose.ci.yml | envsubst | tee docker-compose.yml
+            - docker-compose run addressbook npm test
