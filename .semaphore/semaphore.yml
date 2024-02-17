@@ -11,10 +11,10 @@ blocks:
         - name: docker build
           commands:
             - checkout
-            - echo "$mursu0-Wostos-cizjom" | docker login -u "$aklie8" --password-stdin
-            - 'docker pull "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest" || true'
-            - 'docker build --cache-from "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest" -t "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest" .'
-            - 'docker push "${DOCKER_USERNAME}/dockerizing-nodejs-addressbook:latest"'
+            - echo "mursu0-Wostos-cizjom" | docker login -u "aklie8" --password-stdin
+            - 'docker pull "aklie8/dockerizing-nodejs-addressbook:latest" || true'
+            - 'docker build --cache-from "aklie8/dockerizing-nodejs-addressbook:latest" -t "aklie8/dockerizing-nodejs-addressbook:latest" .'
+            - 'docker push "aklie8/dockerizing-nodejs-addressbook:latest"'
   - name: Test
     task:
       secrets:
