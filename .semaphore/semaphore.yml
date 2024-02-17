@@ -17,6 +17,10 @@ blocks:
             - 'docker push "aklie8/dockerizing-nodejs-addressbook:latest"'
       secrets:
         - name: docker hub
+      agent:
+        machine:
+          type: e1-standard-2
+          os_image: ubuntu1804
   - name: Test
     task:
       secrets:
