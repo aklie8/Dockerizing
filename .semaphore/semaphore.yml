@@ -15,6 +15,8 @@ blocks:
             - 'docker pull "aklie8/dockerizing-nodejs-addressbook:latest" || true'
             - 'docker build --cache-from "aklie8/dockerizing-nodejs-addressbook:latest" -t "aklie8/dockerizing-nodejs-addressbook:latest" .'
             - 'docker push "aklie8/dockerizing-nodejs-addressbook:latest"'
+      secrets:
+        - name: docker hub
   - name: Test
     task:
       secrets:
